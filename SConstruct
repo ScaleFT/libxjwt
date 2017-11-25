@@ -28,6 +28,7 @@ SConsEnvironment.Chmod = SCons.Action.ActionFactory(os.chmod,
 # Ubuntu LTS 14.04 Trusty includes SCons 2.3.0, so thats our minimum bar for now.
 EnsureSConsVersion(2, 3, 0)
 
+xjwt_version = "1.0.0"
 platform_name = platform.system().upper()
 
 opts = Variables(['build.py', 'build-%s.py' % (platform_name.lower())])
@@ -170,7 +171,11 @@ for vari in variants:
     targets.append(lib)
 
     if variant == selected_variant and not env.GetOption('clean'):
-        imod = env.InstallVersionedLib(so_path, source = [lib])
+        imod = None
+        if build == "STATIC":
+            imod = env.Install(so_path, source = [lib])
+        else:
+            imod = env.InstallVersionedLib(so_path, source = [lib], SHLIBVERSION=xjwt_version)
         install_targets.append(imod)
         headers = InstallHeader(env, header_path, get_files(env, pjoin('include', 'xjwt'), ['*.h']))
         install_targets.append(headers)
