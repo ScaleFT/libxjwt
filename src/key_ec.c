@@ -115,7 +115,7 @@ XJWT_API(xjwt_error_t *) xjwt_key__parse_ec(json_t *doc, xjwt_key_t *key) {
     BN_free(bx);
     BN_free(by);
     EC_KEY_free(pubkey);
-    // TODO(pquerna): openssl error conversion
+    /* TODO(pquerna): openssl error conversion */
     return xjwt_error_create(XJWT_EINVAL,
                              "xjwt_key: invalid key document: EC "
                              "set_public_key_affine_coordinates failed");
@@ -125,7 +125,7 @@ XJWT_API(xjwt_error_t *) xjwt_key__parse_ec(json_t *doc, xjwt_key_t *key) {
 
   key->evp = EVP_PKEY_new();
   if (EVP_PKEY_assign_EC_KEY(key->evp, pubkey) != 1) {
-    // TODO(pquerna): openssl error conversion
+    /* TODO(pquerna): openssl error conversion */
     EC_KEY_free(pubkey);
     return xjwt_error_create(
         XJWT_EINVAL, "xjwt_key: invalid key document: EVP set1 EC_KEY failed");

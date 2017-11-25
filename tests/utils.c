@@ -63,7 +63,7 @@ void xjwt_load_fixture(const char *fname, char **outbuf, size_t *outlen) {
 
   snprintf(p, sizeof(p), "%s/../../../tests/fixtures/%s", testdir_path, fname);
 
-  // fprintf(stderr, "xjwt_load_fixture path: %s\n", p);
+  /* fprintf(stderr, "xjwt_load_fixture path: %s\n", p); */
 
   fp = fopen(p, "r");
 

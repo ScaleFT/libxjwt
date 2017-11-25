@@ -95,7 +95,7 @@ xjwt__parse_untrusted(const char *input, size_t len, xjwt_parsed_t **out) {
   rv->signature = strdup(signature);
   rv->signed_data_l = strlen(header) + strlen(payload) + 1;
   rv->signed_data = calloc(1, rv->signed_data_l + 1);
-  // TODO(pquenra): this is stupid / lazy
+  /* TODO(pquenra): this is stupid / lazy */
   snprintf((char *)rv->signed_data, rv->signed_data_l + 1, "%s.%s", header,
            payload);
 
@@ -164,7 +164,7 @@ xjwt__parse_ec_signature(xjwt_parsed_t *jwt, const char **outecsig,
   size_t offset = jwt->signature_decoded_l / 2;
   ECDSA_SIG *sig = ECDSA_SIG_new();
 
-  // TODO(pquerna): assert signature size constraints here before releasing.
+  /* TODO(pquerna): assert signature size constraints here? */
   BN_bin2bn((const unsigned char *)jwt->signature_decoded,
             jwt->signature_decoded_l / 2, sig->r);
   BN_bin2bn((const unsigned char *)jwt->signature_decoded + offset,

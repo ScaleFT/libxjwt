@@ -54,14 +54,14 @@ static void verify_e1(void **state) {
   XJWT_ASSERT(failed == NULL);
   xjwt_verify_success_destroy(success);
 
-  // expire it
+  /* expire it */
   baton.now = 1510621414;
   xjwt_verify(&opts, buf, len, &success, &failed);
   XJWT_ASSERT(failed != NULL);
   XJWT_ASSERT(success == NULL);
   xjwt_verify_failure_destroy(failed);
 
-  // not before it...
+  /* not before it... */
   baton.now = 1510621110;
   xjwt_verify(&opts, buf, len, &success, &failed);
   XJWT_ASSERT(failed != NULL);
