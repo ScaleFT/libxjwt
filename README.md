@@ -1,4 +1,6 @@
-# libxjwt: minimal library for validation of real-world JWTs
+# libxjwt: minimal C library for validation of real-world JWTs
+
+[![Build Status](https://travis-ci.org/ScaleFT/libxjwt.svg?branch=master)](https://travis-ci.org/ScaleFT/libxjwt)
 
 `libxjwt` seeks to provide a minimal c89-style library and API surface for validating a compact-form JWT against a set of JWKs. This is not meant to be a general purpose JOSE library.  If you are looking for a more general purpose C library, consider [cjose](https://github.com/cisco/cjose).
 

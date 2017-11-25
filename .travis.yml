@@ -1,0 +1,9 @@
+---
+dist: trusty
+addons:
+  apt:
+    packages:
+    - libjansson-dev
+    - libjansson4
+language: cpp
+script: scons && scons test
