@@ -16,10 +16,9 @@
 #
 
 import SCons
-import os, subprocess
+import os, subprocess, platform
 from site_scons.utils import get_files, InstallHeader
 from os.path import join as pjoin
-
 
 from SCons.Script.SConscript import SConsEnvironment
 
@@ -29,7 +28,9 @@ SConsEnvironment.Chmod = SCons.Action.ActionFactory(os.chmod,
 # Ubuntu LTS 14.04 Trusty includes SCons 2.3.0, so thats our minimum bar for now.
 EnsureSConsVersion(2, 3, 0)
 
-opts = Variables('build.py')
+platform_name = platform.system().upper()
+
+opts = Variables(['build.py', 'build-%s.py' % (platform_name.lower())])
 
 available_profiles = ['debug', 'release']
 available_build_types = ['static','shared']
@@ -99,7 +100,7 @@ variants = []
 bt = [env['build_type'].upper()]
 for profile in available_profiles:
     for build in available_build_types:
-        variants.append({'PROFILE': profile.upper(), 'BUILD': build.upper()})
+        variants.append({'PROFILE': profile.upper(), 'BUILD': build.upper(), 'PLATFORM': platform_name})
 
 rootenv = env
 
