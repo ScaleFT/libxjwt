@@ -1,0 +1,8 @@
+build/*
+.scons*
+*.o
+*.pyc
+.sconf_temp
+config.log
+*.os
+build.py

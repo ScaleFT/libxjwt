@@ -1,0 +1,35 @@
+from os.path import join as pjoin
+
+Import('env')
+
+
+cenv = env.Clone()
+cenv.AppendUnique(CPPPATH=['#/vendor/cmockery/src/google'])
+cenv['CCFLAGS'] = filter(lambda x: x not in ["-Wall", "-pedantic", "-std=gnu89"], cenv['CCFLAGS'])
+cenv.Command("cmockery.c", cenv.File('#/vendor/cmockery/src/cmockery.c'), Copy("$TARGET", "$SOURCE"))
+cmock = cenv.StaticLibrary('libcmockery', source=cenv.File('cmockery.c'))
+
+
+tenv = env.Clone()
+
+tenv.AppendUnique(CPPPATH=['#/vendor/cmockery/src/google'])
+# for internal headers
+tenv.AppendUnique(CPPPATH=['#/include'])
+tenv.AppendUnique(CPPPATH=['#/src'])
+tenv.AppendUnique(CPPDEFINES=['XJWT_TEST_ALL=1'])
+tenv.AppendUnique(LIBS=tenv['libxjwt'])
+tenv.AppendUnique(LIBS=cmock)
+
+sources = Split("""
+  utils.c
+  test_all.c
+  test_keyset.c
+  test_split.c
+  test_verify.c
+""")
+
+tests = []
+
+tests.append(tenv.Program('test_all', source=sources))
+
+Return('tests')
