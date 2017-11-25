@@ -55,7 +55,7 @@ static xjwt_error_t *xjwt__get_tv(json_t *payload, const char *key,
   }
   v = json_number_value(num);
   if (v < 946684800.0) {
-    // old old date, not reasonable.
+    /* old old date, not reasonable. */
     return xjwt_error_createf(
         XJWT_EINVAL, "xjwt_verify: JWT .%s contains outlandish date", key);
   }
@@ -73,7 +73,7 @@ static xjwt_error_t *xjwt__verify_payload_claims(xjwt_verify_options_t *opts,
   if (opts->now != NULL) {
     now = opts->now(opts->baton);
   } else {
-    // TODO(pquerna): use gettimeofday?
+    /* TODO(pquerna): use gettimeofday? */
     now = (uint64_t)time(NULL);
   }
 
@@ -215,7 +215,7 @@ xjwt_verify(xjwt_verify_options_t *opts, const char *data, size_t len,
   }
   ref_hdr_alg = json_string_value(ref_v);
 
-  // TODO(pquerna): factoring for EC vs Ed25519
+  /* TODO(pquerna): factoring for EC vs Ed25519 */
   ref_md = alg_to_evp_md(ref_hdr_alg, &keysize);
   if (ref_md == NULL) {
     reason = XJWT_VERIFY_MALFORMED;
@@ -278,8 +278,10 @@ xjwt_verify(xjwt_verify_options_t *opts, const char *data, size_t len,
     goto failed;
   }
 
-  // at this point, we have a basic validation of the JWT's signer;  Let's parse
-  // the claims and keep rolling.
+  /**
+   * At this point, we have a basic validation of the JWT's signer;  Let's parse
+   * the claims and keep rolling.
+   */
   err = xjwt__parse_payload(parsed, &jpayload);
   if (err != XJWT_SUCCESS) {
     reason = XJWT_VERIFY_MALFORMED;

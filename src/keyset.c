@@ -37,7 +37,7 @@ xjwt_keyset_create_from_memory(const char* buffer, size_t buflen,
 
   doc = json_loadb(buffer, buflen, 0, &jerror);
   if (doc == NULL) {
-    // TODO(pquerna): make generic error handle for json documents:
+    /* TODO(pquerna): make generic error handle for json documents */
     return xjwt_error_createf(
         XJWT_EINVAL, "xjwt_keyset: invalid keyset document: %s @ %d:%d",
         jerror.text, jerror.line, jerror.column);

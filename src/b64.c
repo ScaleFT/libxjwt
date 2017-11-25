@@ -50,7 +50,7 @@ static size_t b64_decode_len(const char *src, size_t len) {
   size_t p = 0;
 
   if (len < 4) {
-    // invalid base64 src.  prob empty string
+    /* invalid base64 src.  prob empty string */
     return 0;
   }
 
@@ -68,9 +68,11 @@ xjwt__url_base64_decode(const char *xsrc, char **out, size_t *len) {
   BIO *bio;
   size_t outlen;
   char *outbuf;
-  // TODO(pquerna): implement URL safe natively using a table
-  // (using a BIO requires a bunch of allocs and i'm are doing this
-  // in an ultra terrible way)
+  /**
+   * TODO(pquerna): implement URL safe natively using a table
+   * (using a BIO requires a bunch of allocs and i'm are doing this
+   * in an ultra terrible way)
+   */
   char *src = b64_mutate_url_to_normal(xsrc);
   size_t slen = strlen(src);
 
@@ -88,7 +90,7 @@ xjwt__url_base64_decode(const char *xsrc, char **out, size_t *len) {
   BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
   bio = BIO_push(b64, bio);
 
-  // NOTE: not sure if we should assert outlen === expected outlen.
+  /* NOTE: not sure if we should assert outlen === expected outlen. */
   outlen = BIO_read(bio, outbuf, outlen);
   BIO_free_all(bio);
 
