@@ -26,7 +26,8 @@ from SCons.Script.SConscript import SConsEnvironment
 SConsEnvironment.Chmod = SCons.Action.ActionFactory(os.chmod,
         lambda dest, mode: 'Chmod("%s", 0%o)' % (dest, mode))
 
-EnsureSConsVersion(2, 4, 0)
+# Ubuntu LTS 14.04 Trusty includes SCons 2.3.0, so thats our minimum bar for now.
+EnsureSConsVersion(2, 3, 0)
 
 opts = Variables('build.py')
 
