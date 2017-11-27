@@ -162,7 +162,7 @@ for vari in variants:
     build = vari['BUILD']
     variant = '%s-%s' % (profile.lower(), build.lower())
     vdir = pjoin('build', variant)
-    env['PROFILE'] = profile 
+    env['PROFILE'] = profile
     env['BUILD'] = build
 
     lib = SConscript('SConscript', exports='env', variant_dir=pjoin(vdir, 'libxjwt'), duplicate=0)
@@ -198,7 +198,7 @@ all_source_files = get_files(fenv, 'src', ['*.c', '*.h']) + \
                    get_files(fenv, pjoin('include', 'xjwt'), ['*.c', '*.h'])
 
 fenv['CLANG_FORMAT'] = 'clang-format'
-fenv['CLANG_FORMAT_OPTIONS'] = '-style="{BasedOnStyle: Google, SortIncludes: false}" -i'
+fenv['CLANG_FORMAT_OPTIONS'] = '-style=file -i'
 formatit = fenv.Command('.clang-format-all-source', all_source_files,
                     '$CLANG_FORMAT $CLANG_FORMAT_OPTIONS $SOURCES')
 fenv.AlwaysBuild(formatit)
