@@ -194,7 +194,7 @@ xjwt__parse_ec_signature(xjwt_parsed_t *jwt, const char **outecsig,
     ECDSA_SIG_free(sig);
     BN_free(r);
     BN_free(s);
-    return xjwt_error_create(XJWT_ENOMEM, "xjwt_verify: i2d_ECDSA_SIG failed");
+    return xjwt_error_create(XJWT_ENOMEM, "xjwt_verify: ECDSA_SIG_set0 failed");
   }
 
   len = i2d_ECDSA_SIG(sig, &p);
