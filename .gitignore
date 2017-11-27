@@ -7,3 +7,4 @@ config.log
 *.os
 build.py
 build-*.py
+.vscode

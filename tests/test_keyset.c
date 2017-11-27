@@ -30,9 +30,9 @@ static void keyset_parse_memory(void **state) {
 
   XJWT_NO_ERROR(xjwt_keyset_create_from_memory(buf, len, &ks));
 
-  key = xjwt_keyset__get_by_keyid(ks, "9872c4bc33d6903c");
+  key = xjwt_keyset__get_by_keyid(ks, "65289b19-e0c6-4918-8933-7961781adb0d");
 
-  XJWT_ASSERT(strcmp("9872c4bc33d6903c", key->key_id) == 0);
+  XJWT_ASSERT(strcmp("65289b19-e0c6-4918-8933-7961781adb0d", key->key_id) == 0);
   XJWT_ASSERT(strcmp("ES256", key->algorithm) == 0);
   XJWT_ASSERT(strcmp("sig", key->use) == 0);
   XJWT_ASSERT(strcmp("EC", key->key_type) == 0);

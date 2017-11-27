@@ -32,17 +32,20 @@ static void split_jwt_parts(void **state) {
   XJWT_ASSERT(parsed != NULL);
 
   XJWT_ASSERT(strcmp(parsed->header,
-                     "eyJhbGciOiJFUzI1NiIsImtpZCI6ImNlZjhmNThmMmY4NDc4NmYiLCJub"
-                     "25jZSI6IjczZWVlZmI3MTU2YjUwN2YifQ") == 0);
+                     "eyJhbGciOiJFUzI1NiIsImtpZCI6IjY1Mjg5YjE5L"
+                     "WUwYzYtNDkxOC04OTMzLTc5NjE3ODFhZGIwZCJ"
+                     "9") == 0);
   XJWT_ASSERT(strcmp(parsed->payload,
-                     "eyJhdWQiOlsiaHR0cHM6Ly90ZXN0LmtocnlvLmNvbSJdLCJlbWFpbCI6I"
-                     "mJyYWQubW9yZ2FuQHNjYWxlZnQuY29tIiwiZXhwIjoxNTEwNjIxNDEzLC"
-                     "JpYXQiOjE1MTA2MjEyMzMsImlzcyI6Imh0dHBzOi8vZGV2LnN1ZG8ud3R"
-                     "mOjg0NDMiLCJuYmYiOjE1MTA2MjExMTMsInN1YiI6ImFiMGVkYWYxLTRl"
-                     "ZDEtNDBjMC1hZmNiLTE4ZGNmNzU3MTJlNyJ9") == 0);
+                     "eyJhdWQiOlsiaHR0cHM6Ly9hdWRpZW5jZS5leGFtcGxlLmNvbSJdLCJlb"
+                     "WFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJleHAiOjEuNTEwNjIxNDEzZS"
+                     "swOSwiaWF0IjoxLjUxMDYyMTIzM2UrMDksImlzcyI6Imh0dHBzOi8vaXN"
+                     "zdWVyLmV4YW1wbGUuY29tIiwibmJmIjoxLjUxMDYyMTExM2UrMDksInN1"
+                     "YiI6ImFiMGVkYWYxLTRlZDEtNDBjMC1hZmNiLTE4ZGNmNzU3MTJlNyJ"
+                     "9") == 0);
   XJWT_ASSERT(strcmp(parsed->signature,
-                     "TrJq661jUVlfalXM8oS6RfELYPABmfkqyDlGuDXOQLr-"
-                     "lOZVZqjRYwPRoZaQresGVvzoygBIf2QpduiDBkLVOA") == 0);
+                     "DOQpYvNU6VGg5Pp8fjQr6y8Ksa5H2v9mNe25dv"
+                     "KKXTzAuOzeXIPKX0GuapiAs1aptCd5Gt8Gwqfu"
+                     "KrPnGupfGQ") == 0);
 
   xjwt__parsed_destroy(parsed);
   free(buf);
