@@ -40,9 +40,9 @@ static void verify_e1(void **state) {
 
   xjwt_load_fixture("e1_af.jwt", &buf, &len);
 
-  opts.expected_issuer = "https://dev.sudo.wtf:8443";
+  opts.expected_issuer = "https://issuer.example.com";
   opts.expected_subject = "ab0edaf1-4ed1-40c0-afcb-18dcf75712e7";
-  opts.expected_audience = "https://test.khryo.com";
+  opts.expected_audience = "https://audience.example.com";
   opts.now = tcb;
   baton.now = 1510621410;
   opts.baton = &baton;
