@@ -18,10 +18,25 @@
 #include "internal/xjwt_b64.h"
 
 #include <openssl/ecdsa.h>
+#include <openssl/opensslv.h>
 
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
+/* OpenSSL compat shim - see:
+ * https://wiki.openssl.org/index.php/OpenSSL_1.1.0_Changes#Compatibility_Layer
+ */
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
+static int ECDSA_SIG_set0(ECDSA_SIG *sig, BIGNUM *r, BIGNUM *s) {
+  if (r == NULL || s == NULL) return 0;
+  BN_clear_free(sig->r);
+  BN_clear_free(sig->s);
+  sig->r = r;
+  sig->s = s;
+  return 1;
+}
+#endif
 
 XJWT_API(xjwt_error_t *)
 xjwt__parse_untrusted(const char *input, size_t len, xjwt_parsed_t **out) {
@@ -164,11 +179,23 @@ xjwt__parse_ec_signature(xjwt_parsed_t *jwt, const char **outecsig,
   size_t offset = jwt->signature_decoded_l / 2;
   ECDSA_SIG *sig = ECDSA_SIG_new();
 
+  BIGNUM *r, *s;
   /* TODO(pquerna): assert signature size constraints here? */
-  BN_bin2bn((const unsigned char *)jwt->signature_decoded,
-            jwt->signature_decoded_l / 2, sig->r);
-  BN_bin2bn((const unsigned char *)jwt->signature_decoded + offset,
-            jwt->signature_decoded_l / 2, sig->s);
+  r = BN_bin2bn((const unsigned char *)jwt->signature_decoded,
+                jwt->signature_decoded_l / 2, NULL);
+  s = BN_bin2bn((const unsigned char *)jwt->signature_decoded + offset,
+                jwt->signature_decoded_l / 2, NULL);
+
+  /* NOTE(morgabra) Calling this function transfers the memory management of the
+   * values to the ECDSA_SIG object, and therefore the values that have been
+   * passed in should not be freed directly after this function has been called.
+   */
+  if (!ECDSA_SIG_set0(sig, r, s)) {
+    ECDSA_SIG_free(sig);
+    BN_free(r);
+    BN_free(s);
+    return xjwt_error_create(XJWT_ENOMEM, "xjwt_verify: ECDSA_SIG_set0 failed");
+  }
 
   len = i2d_ECDSA_SIG(sig, &p);
   if (len <= 0) {
