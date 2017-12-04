@@ -28,7 +28,7 @@ SConsEnvironment.Chmod = SCons.Action.ActionFactory(os.chmod,
 # Ubuntu LTS 14.04 Trusty includes SCons 2.3.0, so thats our minimum bar for now.
 EnsureSConsVersion(2, 3, 0)
 
-xjwt_version = "1.0.0"
+xjwt_version = "1.0.1"
 platform_name = platform.system().upper()
 
 opts = Variables(['build.py', 'build-%s.py' % (platform_name.lower())])

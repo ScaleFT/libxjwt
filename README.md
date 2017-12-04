@@ -6,9 +6,13 @@
 
 # Whats New
 
+## 1.0.1
+
+- Support for API changes in OpenSSL version 1.1 [#5](https://github.com/ScaleFT/libxjwt/pull/5)
+
 ## 1.0.0
 
-Initial open source release.
+- Initial open source release.
 
 ## API
 
