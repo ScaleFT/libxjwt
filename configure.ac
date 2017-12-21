@@ -25,6 +25,10 @@ AX_CHECK_OPENSSL
 AC_CHECK_LIB([crypto],[EVP_PKEY_free], [], [AC_MSG_ERROR([OpenSSL libraries required])])
 AC_CHECK_HEADERS([openssl/evp.h],[],[AC_MSG_ERROR([OpenSSL headers required])])
 
+AC_CHECK_LIB([jansson],[json_true], [], [AC_MSG_ERROR([Jansson libraries required])])
+AC_CHECK_HEADERS([jansson.h],[],[AC_MSG_ERROR([Jansson headers required])])
+
+
 AC_CONFIG_HEADERS([src/internal/xjwt_config.h])
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

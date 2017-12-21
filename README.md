@@ -27,8 +27,6 @@ An example of using these APIs is in [test_verify.c](./tests/test_verify.c)
 
 - [OpenSSL](https://www.openssl.org/): libxjwt uses EC and EVP APIs.
 - [Jansson](http://www.digip.org/jansson/): JSON Parser
-- (build-only) c89 compiler
-- (build-only) scons
 
 ## Security
 
