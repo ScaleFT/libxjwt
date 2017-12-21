@@ -1,5 +1,5 @@
 Name:           libxjwt
-Version:        1.0.1
+Version:        1.0.2
 Release:        1%{?dist}
 
 Summary:        Minimal C library for validation of real-world JWTs
@@ -14,11 +14,13 @@ BuildRequires:  scons
 BuildRequires:  openssl-devel
 BuildRequires:  jansson-devel
 
+Prefix:         %{_prefix}
+
 %description
 libxjwt seeks to provide a minimal c89-style library and API surface for validating a compact-form JWT against a set of JWKs. This is not meant to be a general purpose JOSE library. If you are looking for a more general purpose C library, consider cjose.
 
 %files
-/usr/lib/%{name}.so
+%{_prefix}/lib/%{name}.*
 %license $RPM_BUILD_DIR/%{name}-%{version}/LICENSE
 %doc $RPM_BUILD_DIR/%{name}-%{version}/README.md
 
@@ -32,7 +34,7 @@ Provides:       %{name}-devel = %{version}-%{release}
 %{name} development files.
 
 %files -n %{name}-devel
-/usr/include/xjwt/*.h
+%{_prefix}/include/xjwt/*.h
 
 %prep
 rm -Rf $RPM_BUILD_DIR/%{name}-%{version}
@@ -40,10 +42,10 @@ tar xvfz $RPM_SOURCE_DIR/v%{version}.tar.gz -C $RPM_BUILD_DIR/
 
 %build
 cd %{name}-%{version}
-scons build
+./configure --prefix=%{_prefix}
+make
 
 %install
+[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
-scons install --install-sandbox="$RPM_BUILD_ROOT" prefix=/usr
-
-%post -p /sbin/ldconfig
+make DESTDIR=$RPM_BUILD_ROOT install
