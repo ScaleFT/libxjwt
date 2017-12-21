@@ -10,7 +10,6 @@ Source0:        https://github.com/ScaleFT/libxjwt/archive/v%{version}.tar.gz
 URL:            https://github.com/ScaleFT/libxjwt
 Vendor:         ScaleFT http://scaleft.com
 
-BuildRequires:  scons
 BuildRequires:  openssl-devel
 BuildRequires:  jansson-devel
 
