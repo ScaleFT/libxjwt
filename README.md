@@ -6,6 +6,10 @@
 
 # What's New
 
+## 1.0.2 (in development)
+
+- Add autotools based build (classic `./configure && make && make install`) [#9](https://github.com/ScaleFT/libxjwt/pull/9)
+
 ## 1.0.1
 
 - Support for API changes in OpenSSL version 1.1 [#5](https://github.com/ScaleFT/libxjwt/pull/5)
