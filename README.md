@@ -37,8 +37,11 @@ An example of using these APIs is in [test_verify.c](./tests/test_verify.c)
 
 ### RPM base Distrobutions
 
-Assuming a proper rpmbuild environment exists on the build host, a pair of rpms (bin and devel), an RPM can be built using the included spec file like so:
-```rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec```
+Assuming a proper rpmbuild environment exists on the build host, a pair of rpms (bin and devel), can be built using the included spec file like so:
+
+```
+rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec
+```
 
 ### Others
 
