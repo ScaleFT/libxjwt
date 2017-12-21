@@ -45,6 +45,11 @@ An example of using these APIs is in [test_verify.c](./tests/test_verify.c)
   - Parsing the JWT Signature. This is done by `xjwt__parse_ec_signature` function in [parse.c](./src/parse.c).
   - Validation of the EC Signature for the Header+Payload is done using OpenSSL's EVP API.
 
+## Building Centos7 rpm
+
+Assuming a proper rpmbuild environment exists on the build host, a pair of rpms (bin and devel) for Centos7 can be built using the included spec file like so:
+```rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec```
+
 # License
 
 `libxjwt` is licensed under the Apache License Version 2.0. See the [LICENSE file](./LICENSE) for details.
