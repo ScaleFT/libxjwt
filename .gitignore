@@ -7,4 +7,8 @@ config.log
 *.os
 build.py
 build-*.py
-.vscode
+.vscodesrc/internal/stamp-h1
+*.lo
+libxjwt.la
+src/internal/xjwt_config.h
+
