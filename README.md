@@ -9,6 +9,7 @@
 ## 1.0.2 (in development)
 
 - Add autotools based build (classic `./configure && make && make install`) [#9](https://github.com/ScaleFT/libxjwt/pull/9)
+- Add spec file for RPM Packaging  [#8](https://github.com/ScaleFT/libxjwt/pull/8)
 
 ## 1.0.1
 
@@ -32,9 +33,30 @@ An example of using these APIs is in [test_verify.c](./tests/test_verify.c)
 - [OpenSSL](https://www.openssl.org/): libxjwt uses EC and EVP APIs.
 - [Jansson](http://www.digip.org/jansson/): JSON Parser
 
-## Security
+## Building
 
-`libxjwt` is commonly used in parsing untrusted data from network sources. 
+### RPM base Distrobutions
+
+Assuming a proper rpmbuild environment exists on the build host, a pair of rpms (bin and devel), an RPM can be built using the included spec file like so:
+```rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec```
+
+### Others
+
+After Jansson and OpenSSL development headers are available, building libxjwt should just take:
+
+```
+./configure
+make
+make install
+```
+
+## Security Model
+
+ScaleFT takes security seriously. If you discover a security issue, please bring it to our attention right away!
+
+Please DO NOT file a public issue or pull request, [instead send your report privately to the ScaleFT Security Team](https://www.scaleft.com/company/security/), reachable at [security@scaleft.com](mailto:security@scaleft.com).
+
+`libxjwt` is commonly used in parsing untrusted data from network sources, as such we have tried to be careful and take this into consideration in design of the library.
 
 - Compact form JWTs are limited to 16kb maximum size.
 - `libxjwt` only supports the `ES256`, `ES384` and `ES521` algorithm types for signature validation.
@@ -45,10 +67,6 @@ An example of using these APIs is in [test_verify.c](./tests/test_verify.c)
   - Parsing the JWT Signature. This is done by `xjwt__parse_ec_signature` function in [parse.c](./src/parse.c).
   - Validation of the EC Signature for the Header+Payload is done using OpenSSL's EVP API.
 
-## Building Centos7 rpm
-
-Assuming a proper rpmbuild environment exists on the build host, a pair of rpms (bin and devel) for Centos7 can be built using the included spec file like so:
-```rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec```
 
 # License
 
