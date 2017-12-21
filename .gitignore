@@ -11,4 +11,9 @@ build-*.py
 *.lo
 libxjwt.la
 src/internal/xjwt_config.h
-
+Makefile
+.deps
+config.status
+stamp-h1
+*~
+libtool
