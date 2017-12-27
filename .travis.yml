@@ -5,5 +5,9 @@ addons:
     packages:
     - libjansson-dev
     - libjansson4
+    - autoconf-archive
+    - autotools-dev
+    - automake
+    - autoconf
 language: cpp
-script: ./configure && make && scons && scons test
+script: ./buildconf.sh && ./configure && make && scons && scons test
