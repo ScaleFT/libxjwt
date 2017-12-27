@@ -6,4 +6,4 @@ addons:
     - libjansson-dev
     - libjansson4
 language: cpp
-script: scons && scons test
+script: ./configure && make && scons && scons test
