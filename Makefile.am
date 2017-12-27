@@ -7,6 +7,8 @@ xjwtinclude_HEADERS = include/xjwt/xjwt_error.h \
     include/xjwt/xjwt_validator.h \
     include/xjwt/xjwt_visibility.h
 
+libxjwt_la_CPPFLAGS = -I$(top_srcdir)/include
+
 libxjwt_la_SOURCES = src/b64.c \
     src/error.c \
     src/json.c \

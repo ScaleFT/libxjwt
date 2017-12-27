@@ -134,8 +134,10 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(xjwtincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libxjwt_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libxjwt_la_OBJECTS = src/b64.lo src/error.lo src/json.lo src/key.lo \
-	src/key_ec.lo src/keyset.lo src/parse.lo src/validator.lo
+am_libxjwt_la_OBJECTS = src/libxjwt_la-b64.lo src/libxjwt_la-error.lo \
+	src/libxjwt_la-json.lo src/libxjwt_la-key.lo \
+	src/libxjwt_la-key_ec.lo src/libxjwt_la-keyset.lo \
+	src/libxjwt_la-parse.lo src/libxjwt_la-validator.lo
 libxjwt_la_OBJECTS = $(am_libxjwt_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -356,6 +358,7 @@ xjwtinclude_HEADERS = include/xjwt/xjwt_error.h \
     include/xjwt/xjwt_validator.h \
     include/xjwt/xjwt_visibility.h
 
+libxjwt_la_CPPFLAGS = -I$(top_srcdir)/include
 libxjwt_la_SOURCES = src/b64.c \
     src/error.c \
     src/json.c \
@@ -464,14 +467,22 @@ src/$(am__dirstamp):
 src/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) src/$(DEPDIR)
 	@: > src/$(DEPDIR)/$(am__dirstamp)
-src/b64.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/error.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/json.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/key.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/key_ec.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/keyset.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/parse.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
-src/validator.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-b64.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-error.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-json.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-key.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-key_ec.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-keyset.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-parse.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
+src/libxjwt_la-validator.lo: src/$(am__dirstamp) \
+	src/$(DEPDIR)/$(am__dirstamp)
 
 libxjwt.la: $(libxjwt_la_OBJECTS) $(libxjwt_la_DEPENDENCIES) $(EXTRA_libxjwt_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libxjwt_la_LINK) -rpath $(libdir) $(libxjwt_la_OBJECTS) $(libxjwt_la_LIBADD) $(LIBS)
@@ -484,14 +495,14 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/b64.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/error.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/json.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/key.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/key_ec.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/keyset.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/parse.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/validator.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-b64.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-error.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-json.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-key.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-key_ec.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-keyset.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-parse.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libxjwt_la-validator.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(AM_V_CC)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -516,6 +527,62 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LTCOMPILE) -c -o $@ $<
+
+src/libxjwt_la-b64.lo: src/b64.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-b64.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-b64.Tpo -c -o src/libxjwt_la-b64.lo `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-b64.Tpo src/$(DEPDIR)/libxjwt_la-b64.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/b64.c' object='src/libxjwt_la-b64.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-b64.lo `test -f 'src/b64.c' || echo '$(srcdir)/'`src/b64.c
+
+src/libxjwt_la-error.lo: src/error.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-error.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-error.Tpo -c -o src/libxjwt_la-error.lo `test -f 'src/error.c' || echo '$(srcdir)/'`src/error.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-error.Tpo src/$(DEPDIR)/libxjwt_la-error.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/error.c' object='src/libxjwt_la-error.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-error.lo `test -f 'src/error.c' || echo '$(srcdir)/'`src/error.c
+
+src/libxjwt_la-json.lo: src/json.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-json.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-json.Tpo -c -o src/libxjwt_la-json.lo `test -f 'src/json.c' || echo '$(srcdir)/'`src/json.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-json.Tpo src/$(DEPDIR)/libxjwt_la-json.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/json.c' object='src/libxjwt_la-json.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-json.lo `test -f 'src/json.c' || echo '$(srcdir)/'`src/json.c
+
+src/libxjwt_la-key.lo: src/key.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-key.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-key.Tpo -c -o src/libxjwt_la-key.lo `test -f 'src/key.c' || echo '$(srcdir)/'`src/key.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-key.Tpo src/$(DEPDIR)/libxjwt_la-key.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/key.c' object='src/libxjwt_la-key.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-key.lo `test -f 'src/key.c' || echo '$(srcdir)/'`src/key.c
+
+src/libxjwt_la-key_ec.lo: src/key_ec.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-key_ec.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-key_ec.Tpo -c -o src/libxjwt_la-key_ec.lo `test -f 'src/key_ec.c' || echo '$(srcdir)/'`src/key_ec.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-key_ec.Tpo src/$(DEPDIR)/libxjwt_la-key_ec.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/key_ec.c' object='src/libxjwt_la-key_ec.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-key_ec.lo `test -f 'src/key_ec.c' || echo '$(srcdir)/'`src/key_ec.c
+
+src/libxjwt_la-keyset.lo: src/keyset.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-keyset.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-keyset.Tpo -c -o src/libxjwt_la-keyset.lo `test -f 'src/keyset.c' || echo '$(srcdir)/'`src/keyset.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-keyset.Tpo src/$(DEPDIR)/libxjwt_la-keyset.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/keyset.c' object='src/libxjwt_la-keyset.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-keyset.lo `test -f 'src/keyset.c' || echo '$(srcdir)/'`src/keyset.c
+
+src/libxjwt_la-parse.lo: src/parse.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-parse.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-parse.Tpo -c -o src/libxjwt_la-parse.lo `test -f 'src/parse.c' || echo '$(srcdir)/'`src/parse.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-parse.Tpo src/$(DEPDIR)/libxjwt_la-parse.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/parse.c' object='src/libxjwt_la-parse.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-parse.lo `test -f 'src/parse.c' || echo '$(srcdir)/'`src/parse.c
+
+src/libxjwt_la-validator.lo: src/validator.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT src/libxjwt_la-validator.lo -MD -MP -MF src/$(DEPDIR)/libxjwt_la-validator.Tpo -c -o src/libxjwt_la-validator.lo `test -f 'src/validator.c' || echo '$(srcdir)/'`src/validator.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libxjwt_la-validator.Tpo src/$(DEPDIR)/libxjwt_la-validator.Plo
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='src/validator.c' object='src/libxjwt_la-validator.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libxjwt_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o src/libxjwt_la-validator.lo `test -f 'src/validator.c' || echo '$(srcdir)/'`src/validator.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
