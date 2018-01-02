@@ -10,4 +10,4 @@ addons:
     - automake
     - autoconf
 language: cpp
-script: ./buildconf.sh && ./configure && make && scons && scons test
+script: ./buildconf.sh && ./configure && make && make check
