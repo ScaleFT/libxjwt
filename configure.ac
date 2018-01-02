@@ -36,15 +36,18 @@ AC_CHECK_LIB([crypto],[EVP_PKEY_free], [], [AC_MSG_ERROR([OpenSSL libraries requ
 AC_CHECK_HEADERS([openssl/evp.h],[],[AC_MSG_ERROR([OpenSSL headers required])])
 
 AC_ARG_WITH([jansson],
-    [AS_HELP_STRING([--with-jansson],
+    [AS_HELP_STRING([--with-jansson=DIR],
     [Path to Jansson])],
     [with_jansson=$withval],
     [])
 
 AS_IF([test "x$with_jansson" != "x"],
+    [AC_MSG_NOTICE([Found --with-jansson=${with_jansson}])])
+
+AS_IF([test "x$with_jansson" != "x"],
     [CPPFLAGS="$CPPFLAGS -I${with_jansson}/include"])
 AS_IF([test "x$with_jansson" != "x"],
-    [LDFLAGS="$LDFLAGS -I${with_jansson}/lib"])
+    [LDFLAGS="$LDFLAGS -L${with_jansson}/lib -Wl,-rpath,${with_jansson}/lib"])
 
 AX_CHECK_LIBRARY([JANSSON],[jansson.h],[jansson], [],
     [AC_MSG_ERROR([Unable to find libjansson])])
@@ -53,7 +56,7 @@ if test "x$ax_cv_have_JANSSON" = "xyes"; then
   CFLAGS="$CFLAGS $JANSSON_CPPFLAGS"
   LDFLAGS="$LDFLAGS $JANSSON_LDFLAGS"
 fi
-AC_CHECK_LIB([jansson],[json_true], [], [AC_MSG_ERROR([Jansson libraries required])])
+AC_CHECK_LIB([jansson],[json_true], [], [AC_MSG_ERROR([Jansson libraries required. Try adding --with-jansson=DIR])])
 
 AC_CONFIG_HEADERS([src/internal/xjwt_config.h])
 AC_CONFIG_FILES([Makefile])
