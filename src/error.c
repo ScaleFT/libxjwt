@@ -16,7 +16,7 @@
  *  limitations under the License.
  */
 
-#ifdef LINUX
+#ifdef __linux__
 #define _GNU_SOURCE
 #endif
 
