@@ -632,6 +632,8 @@ ac_includes_default="\
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
+JANSSON_LDFLAGS
+JANSSON_CPPFLAGS
 OPENSSL_LDFLAGS
 OPENSSL_LIBS
 OPENSSL_INCLUDES
@@ -766,6 +768,7 @@ with_gnu_ld
 with_sysroot
 enable_libtool_lock
 with_openssl
+with_jansson
 '
       ac_precious_vars='build_alias
 host_alias
@@ -776,7 +779,9 @@ LDFLAGS
 LIBS
 CPPFLAGS
 LT_SYS_LIBRARY_PATH
-CPP'
+CPP
+JANSSON_CPPFLAGS
+JANSSON_LDFLAGS'
 
 
 # Initialize some variables set by options.
@@ -1430,6 +1435,7 @@ Optional Packages:
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
                           compiler's sysroot if not specified).
   --with-openssl=DIR      root of the OpenSSL directory
+  --with-jansson          Path to Jansson
 
 Some influential environment variables:
   CC          C compiler command
@@ -1442,6 +1448,10 @@ Some influential environment variables:
   LT_SYS_LIBRARY_PATH
               User-defined run-time library search path.
   CPP         C preprocessor
+  JANSSON_CPPFLAGS
+              C preprocessor flags for JANSSON headers
+  JANSSON_LDFLAGS
+              linker flags for JANSSON libraries
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -2328,6 +2338,7 @@ ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
+
 
 
 
@@ -8289,6 +8300,10 @@ _lt_linker_boilerplate=`cat conftest.err`
 $RM -r conftest*
 
 
+## CAVEAT EMPTOR:
+## There is no encapsulation within the following macros, do not change
+## the running order or otherwise move them around unless you know exactly
+## what you are doing...
 if test -n "$compiler"; then
 
 lt_prog_compiler_no_builtin_flag=
@@ -12361,12 +12376,13 @@ if ac_fn_c_try_link "$LINENO"; then :
 
             { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
-
+            have_openssl=yes
 
 else
 
             { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
+            as_fn_error $? "OpenSSL is required" "$LINENO" 5
 
 
 fi
@@ -12380,6 +12396,12 @@ rm -f core conftest.err conftest.$ac_objext \
 
 
 
+
+if test "x$have_openssl" = "xyes"; then
+  LIBS="$LIBS $OPENSSL_LIBS"
+  CFLAGS="$CFLAGS $OPENSSL_INCLUDES"
+  LDFLAGS="$LDFLAGS $OPENSSL_LDFLAGS"
+fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for EVP_PKEY_free in -lcrypto" >&5
 $as_echo_n "checking for EVP_PKEY_free in -lcrypto... " >&6; }
@@ -12443,6 +12465,106 @@ fi
 done
 
 
+
+# Check whether --with-jansson was given.
+if test "${with_jansson+set}" = set; then :
+  withval=$with_jansson; with_jansson=$withval
+fi
+
+
+if test "x$with_jansson" != "x"; then :
+  CPPFLAGS="$CPPFLAGS -I${with_jansson}/include"
+fi
+if test "x$with_jansson" != "x"; then :
+  LDFLAGS="$LDFLAGS -I${with_jansson}/lib"
+fi
+
+
+
+
+
+  if ${ax_cv_have_JANSSON+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  save_CPPFLAGS="$CPPFLAGS"
+     save_LDFLAGS="$LDFLAGS"
+     save_LIBS="$LIBS"
+
+     if test "x$JANSSON_CPPFLAGS" != "x"; then :
+  CPPFLAGS="$CPPFLAGS $JANSSON_CPPFLAGS"
+fi
+
+     if test "x$JANSSON_LDFLAGS" != "x"; then :
+  LDFLAGS="$LDFLAGS $JANSSON_LDFLAGS"
+fi
+
+     ac_fn_c_check_header_mongrel "$LINENO" "jansson.h" "ac_cv_header_jansson_h" "$ac_includes_default"
+if test "x$ac_cv_header_jansson_h" = xyes; then :
+
+       { $as_echo "$as_me:${as_lineno-$LINENO}: checking for main in -ljansson" >&5
+$as_echo_n "checking for main in -ljansson... " >&6; }
+if ${ac_cv_lib_jansson_main+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-ljansson  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+
+int
+main ()
+{
+return main ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_jansson_main=yes
+else
+  ac_cv_lib_jansson_main=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_jansson_main" >&5
+$as_echo "$ac_cv_lib_jansson_main" >&6; }
+if test "x$ac_cv_lib_jansson_main" = xyes; then :
+  ax_cv_have_JANSSON=yes
+else
+  ax_cv_have_JANSSON=no
+fi
+
+
+else
+  ax_cv_have_JANSSON=no
+fi
+
+
+
+     CPPFLAGS="$save_CPPFLAGS"
+     LDFLAGS="$save_LDFLAGS"
+     LIBS="$save_LIBS"
+
+fi
+
+
+  if test "$ax_cv_have_JANSSON" = "yes"; then :
+
+$as_echo "#define HAVE_JANSSON 1" >>confdefs.h
+
+
+else
+  as_fn_error $? "Unable to find libjansson" "$LINENO" 5
+fi
+
+
+if test "x$ax_cv_have_JANSSON" = "xyes"; then
+  CFLAGS="$CFLAGS $JANSSON_CPPFLAGS"
+  LDFLAGS="$LDFLAGS $JANSSON_LDFLAGS"
+fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for json_true in -ljansson" >&5
 $as_echo_n "checking for json_true in -ljansson... " >&6; }
 if ${ac_cv_lib_jansson_json_true+:} false; then :
@@ -12489,21 +12611,6 @@ _ACEOF
 else
   as_fn_error $? "Jansson libraries required" "$LINENO" 5
 fi
-
-for ac_header in jansson.h
-do :
-  ac_fn_c_check_header_mongrel "$LINENO" "jansson.h" "ac_cv_header_jansson_h" "$ac_includes_default"
-if test "x$ac_cv_header_jansson_h" = xyes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_JANSSON_H 1
-_ACEOF
-
-else
-  as_fn_error $? "Jansson headers required" "$LINENO" 5
-fi
-
-done
-
 
 
 ac_config_headers="$ac_config_headers src/internal/xjwt_config.h"
@@ -14790,3 +14897,4 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
+

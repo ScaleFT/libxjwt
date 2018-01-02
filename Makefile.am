@@ -1,3 +1,5 @@
+ACLOCAL_AMFLAGS = -I m4
+
 lib_LTLIBRARIES = libxjwt.la
 
 xjwtincludedir = $(includedir)/xjwt
