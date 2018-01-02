@@ -15,7 +15,6 @@
 @SET_MAKE@
 
 
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -108,7 +107,6 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/src/internal/xjwt_config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 AM_V_AR = $(am__v_AR_@AM_V@)
 am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
@@ -561,7 +559,7 @@ EXTRA_DIST = .clang-format buildconf.sh CODE_OF_CONDUCT.md \
 	./tests/fixtures/e1_af.jwt ./tests/fixtures/e1_jwk.json \
 	./tests/fixtures/jwk_af.json
 lib_LTLIBRARIES = libxjwt.la
-noinst_LIBRARIES = libcmockery.a
+check_LIBRARIES = libcmockery.a
 TESTS = $(check_PROGRAMS)
 xjwtincludedir = $(includedir)/xjwt
 xjwtinclude_HEADERS = include/xjwt/xjwt_error.h \
@@ -660,8 +658,8 @@ $(top_srcdir)/src/internal/xjwt_config.h.in:  $(am__configure_deps)
 distclean-hdr:
 	-rm -f src/internal/xjwt_config.h src/internal/stamp-h1
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+clean-checkLIBRARIES:
+	-test -z "$(check_LIBRARIES)" || rm -f $(check_LIBRARIES)
 vendor/cmockery/src/$(am__dirstamp):
 	@$(MKDIR_P) vendor/cmockery/src
 	@: > vendor/cmockery/src/$(am__dirstamp)
@@ -1175,7 +1173,7 @@ check-TESTS:
 	log_list=`echo $$log_list`; trs_list=`echo $$trs_list`; \
 	$(MAKE) $(AM_MAKEFLAGS) $(TEST_SUITE_LOG) TEST_LOGS="$$log_list"; \
 	exit $$?;
-recheck: all $(check_PROGRAMS)
+recheck: all $(check_LIBRARIES) $(check_PROGRAMS)
 	@test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
 	@set +e; $(am__set_TESTS_bases); \
 	bases=`for i in $$bases; do echo $$i; done \
@@ -1372,10 +1370,10 @@ distcleancheck: distclean
 	       $(distcleancheck_listfiles) ; \
 	       exit 1; } >&2
 check-am: all-am
-	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
+	$(MAKE) $(AM_MAKEFLAGS) $(check_LIBRARIES) $(check_PROGRAMS)
 	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-am
-all-am: Makefile $(LIBRARIES) $(LTLIBRARIES) $(HEADERS)
+all-am: Makefile $(LTLIBRARIES) $(HEADERS)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(xjwtincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -1421,8 +1419,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-checkPROGRAMS clean-generic clean-libLTLIBRARIES \
-	clean-libtool clean-noinstLIBRARIES mostlyclean-am
+clean-am: clean-checkLIBRARIES clean-checkPROGRAMS clean-generic \
+	clean-libLTLIBRARIES clean-libtool mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
@@ -1496,8 +1494,8 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-xjwtincludeHEADERS
 .MAKE: check-am install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--refresh check check-TESTS \
-	check-am clean clean-checkPROGRAMS clean-cscope clean-generic \
-	clean-libLTLIBRARIES clean-libtool clean-noinstLIBRARIES \
+	check-am clean clean-checkLIBRARIES clean-checkPROGRAMS \
+	clean-cscope clean-generic clean-libLTLIBRARIES clean-libtool \
 	cscope cscopelist-am ctags ctags-am dist dist-all dist-bzip2 \
 	dist-gzip dist-lzip dist-shar dist-tarZ dist-xz dist-zip \
 	distcheck distclean distclean-compile distclean-generic \

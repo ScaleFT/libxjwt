@@ -10,7 +10,7 @@ EXTRA_DIST = .clang-format \
     README.md
 
 lib_LTLIBRARIES = libxjwt.la
-noinst_LIBRARIES = libcmockery.a
+check_LIBRARIES = libcmockery.a
 check_PROGRAMS = test_all
 TESTS = $(check_PROGRAMS)
 
