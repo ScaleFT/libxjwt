@@ -1,6 +1,18 @@
 ACLOCAL_AMFLAGS = -I m4
 
+EXTRA_DIST = .clang-format \
+    buildconf.sh \
+    CODE_OF_CONDUCT.md \
+    CONTRIBUTING.md \
+    NOTICE \
+    LICENSE \
+    dist \
+    README.md
+
 lib_LTLIBRARIES = libxjwt.la
+noinst_LIBRARIES = libcmockery.a
+check_PROGRAMS = test_all
+TESTS = $(check_PROGRAMS)
 
 xjwtincludedir = $(includedir)/xjwt
 xjwtinclude_HEADERS = include/xjwt/xjwt_error.h \
@@ -26,3 +38,29 @@ libxjwt_la_SOURCES = src/b64.c \
     src/internal/xjwt_parse.h
 
 libxjwt_la_LDFLAGS = -version-info 1:0:1
+
+libcmockery_a_CPPFLAGS = -I$(top_srcdir)/vendor/cmockery/src/google \
+    -U HAVE_CONFIG_H
+
+libcmockery_a_SOURCES = vendor/cmockery/src/cmockery.c
+
+test_all_CPPFLAGS = -I$(top_srcdir)/include \
+    -I$(top_srcdir)/src \
+    -I$(top_srcdir)/vendor/cmockery/src/google \
+    -DXJWT_TEST_ALL=1
+
+test_all_SOURCES = tests/test_all.c \
+    tests/test_keyset.c \
+    tests/test_split.c \
+    tests/test_verify.c \
+    tests/utils.c
+
+test_all_LDADD = libxjwt.la libcmockery.a
+
+CLANG_FORMAT = clang-format
+CLANG_FORMAT_OPTIONS = -style=file -i
+
+format: $(libxjwt_la_SOURCES) $(test_all_SOURCES) $(HEADERS)
+	$(CLANG_FORMAT) $(CLANG_FORMAT_OPTIONS) $(libxjwt_la_SOURCES) $(test_all_SOURCES) $(HEADERS)
+
+.PHONY: format

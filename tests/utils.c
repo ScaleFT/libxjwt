@@ -61,7 +61,7 @@ void xjwt_load_fixture(const char *fname, char **outbuf, size_t *outlen) {
   struct stat s;
   char *buf;
 
-  snprintf(p, sizeof(p), "%s/../../../tests/fixtures/%s", testdir_path, fname);
+  snprintf(p, sizeof(p), "%s/../tests/fixtures/%s", testdir_path, fname);
 
   /* fprintf(stderr, "xjwt_load_fixture path: %s\n", p); */
 
