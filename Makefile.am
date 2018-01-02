@@ -6,7 +6,7 @@ EXTRA_DIST = .clang-format \
     CONTRIBUTING.md \
     NOTICE \
     LICENSE \
-    dist \
+    ./dist/rpm/libxjwt.spec \
     README.md
 
 lib_LTLIBRARIES = libxjwt.la
@@ -42,7 +42,11 @@ libxjwt_la_LDFLAGS = -version-info 1:0:1
 libcmockery_a_CPPFLAGS = -I$(top_srcdir)/vendor/cmockery/src/google \
     -U HAVE_CONFIG_H
 
-libcmockery_a_SOURCES = vendor/cmockery/src/cmockery.c
+libcmockery_a_SOURCES = vendor/cmockery/src/cmockery.c \
+	vendor/cmockery/src/google/cmockery.h
+
+EXTRA_DIST += vendor/cmockery/COPYING \
+	vendor/cmockery/README
 
 test_all_CPPFLAGS = -I$(top_srcdir)/include \
     -I$(top_srcdir)/src \
@@ -53,7 +57,12 @@ test_all_SOURCES = tests/test_all.c \
     tests/test_keyset.c \
     tests/test_split.c \
     tests/test_verify.c \
-    tests/utils.c
+    tests/utils.c \
+    tests/xjwt_tests.h
+
+EXTRA_DIST += ./tests/fixtures/e1_af.jwt \
+	 ./tests/fixtures/e1_jwk.json \
+	 ./tests/fixtures/jwk_af.json
 
 test_all_LDADD = libxjwt.la libcmockery.a
 
