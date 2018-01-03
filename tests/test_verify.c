@@ -26,6 +26,37 @@ typedef struct tcb_baton_t {
 
 static uint64_t tcb(void *baton) { return ((tcb_baton_t *)baton)->now; }
 
+static void verify_no_validators(void **state) {
+  char *buf = NULL;
+  size_t len = 0;
+  xjwt_verify_options_t opts = {0};
+  xjwt_verify_failure_t *failed = NULL;
+  xjwt_verify_success_t *success = NULL;
+  tcb_baton_t baton = {0};
+
+  xjwt_load_fixture("jwk_none.json", &buf, &len);
+  XJWT_NO_ERROR(xjwt_keyset_create_from_memory(buf, len, &opts.keyset));
+  free(buf);
+  xjwt_load_fixture("e1_af.jwt", &buf, &len);
+
+  opts.expected_issuer = "https://issuer.example.com";
+  opts.expected_subject = "ab0edaf1-4ed1-40c0-afcb-18dcf75712e7";
+  opts.expected_audience = "https://audience.example.com";
+  opts.now = tcb;
+  baton.now = 1510621410;
+  opts.baton = &baton;
+
+  xjwt_verify(&opts, buf, len, &success, &failed);
+  XJWT_ASSERT(success == NULL);
+  XJWT_ASSERT(failed != NULL);
+  XJWT_ASSERT(failed->err != NULL);
+  XJWT_ASSERT(failed->err->err == XJWT_EINVAL);
+  XJWT_ASSERT(strstr(failed->err->msg, "unknown key id") != NULL);
+  XJWT_ASSERT(
+      strstr(failed->err->msg, "65289b19-e0c6-4918-8933-7961781adb0d") != NULL);
+  xjwt_verify_failure_destroy(failed);
+}
+
 static void verify_e1(void **state) {
   char *buf = NULL;
   size_t len = 0;
@@ -74,4 +105,5 @@ static void verify_e1(void **state) {
 
 XJWT_TESTS_START(verify)
 XJWT_TESTS_ENTRY(verify_e1)
+XJWT_TESTS_ENTRY(verify_no_validators)
 XJWT_TESTS_END()

@@ -237,8 +237,10 @@ xjwt_verify(xjwt_verify_options_t *opts, const char *data, size_t len,
   ref_pubkey = xjwt_keyset__get_by_keyid(opts->keyset, ref_hdr_kid);
   if (ref_pubkey == NULL) {
     reason = XJWT_VERIFY_NO_VALIDATORS;
-    err = xjwt_error_create(
-        XJWT_EINVAL, "xjwt_verify: invalid JWT Header: unknown key id (.kid)");
+    err = xjwt_error_createf(
+        XJWT_EINVAL,
+        "xjwt_verify: invalid JWT Header: unknown key id (.kid): \"%s\"",
+        ref_hdr_kid);
     goto failed;
   }
 
