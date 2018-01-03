@@ -5,7 +5,8 @@ Release:        1%{?dist}
 Summary:        Minimal C library for validation of real-world JWTs
 License:        Apache 2.0
 Group:          System/Libraries
-Source0:        https://github.com/ScaleFT/libxjwt/archive/v%{version}.tar.gz
+Source0:        https://github.com/ScaleFT/libxjwt/releases/download/v%{version}/libxjwt-%{version}.tar.gz
+
 
 URL:            https://github.com/ScaleFT/libxjwt
 Vendor:         ScaleFT http://scaleft.com
