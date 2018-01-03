@@ -1435,7 +1435,7 @@ Optional Packages:
   --with-sysroot[=DIR]    Search for dependent libraries within DIR (or the
                           compiler's sysroot if not specified).
   --with-openssl=DIR      root of the OpenSSL directory
-  --with-jansson          Path to Jansson
+  --with-jansson=DIR      Path to Jansson
 
 Some influential environment variables:
   CC          C compiler command
@@ -12473,10 +12473,15 @@ fi
 
 
 if test "x$with_jansson" != "x"; then :
+  { $as_echo "$as_me:${as_lineno-$LINENO}: Found --with-jansson=${with_jansson}" >&5
+$as_echo "$as_me: Found --with-jansson=${with_jansson}" >&6;}
+fi
+
+if test "x$with_jansson" != "x"; then :
   CPPFLAGS="$CPPFLAGS -I${with_jansson}/include"
 fi
 if test "x$with_jansson" != "x"; then :
-  LDFLAGS="$LDFLAGS -I${with_jansson}/lib"
+  LDFLAGS="$LDFLAGS -L${with_jansson}/lib -Wl,-rpath,${with_jansson}/lib"
 fi
 
 
@@ -12609,7 +12614,7 @@ _ACEOF
   LIBS="-ljansson $LIBS"
 
 else
-  as_fn_error $? "Jansson libraries required" "$LINENO" 5
+  as_fn_error $? "Jansson libraries required. Try adding --with-jansson=DIR" "$LINENO" 5
 fi
 
 

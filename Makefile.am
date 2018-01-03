@@ -1,13 +1,10 @@
 ACLOCAL_AMFLAGS = -I m4
 
+dist_doc_DATA = README.md NOTICE LICENSE CONTRIBUTING.md CODE_OF_CONDUCT.md
+
 EXTRA_DIST = .clang-format \
     buildconf.sh \
-    CODE_OF_CONDUCT.md \
-    CONTRIBUTING.md \
-    NOTICE \
-    LICENSE \
-    ./dist/rpm/libxjwt.spec \
-    README.md
+    ./dist/rpm/libxjwt.spec
 
 lib_LTLIBRARIES = libxjwt.la
 check_LIBRARIES = libcmockery.a
