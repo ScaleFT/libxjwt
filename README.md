@@ -6,7 +6,7 @@
 
 # What's New
 
-## 1.0.2 (in development)
+## 1.0.2
 
 - Add autotools based build (classic `./configure && make && make install`) [#9](https://github.com/ScaleFT/libxjwt/pull/9)
 - Add spec file for RPM Packaging  [#8](https://github.com/ScaleFT/libxjwt/pull/8)

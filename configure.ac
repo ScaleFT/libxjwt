@@ -1,6 +1,6 @@
 
 AC_PREREQ([2.69])
-AC_INIT([libxjwt], [1.0.1])
+AC_INIT([libxjwt], [1.0.2])
 AC_CONFIG_MACRO_DIRS([m4])
 AC_CONFIG_SRCDIR([src/key.c])
 AM_INIT_AUTOMAKE([subdir-objects foreign])
