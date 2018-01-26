@@ -51,3 +51,4 @@ cd %{name}-%{version}
 make DESTDIR=$RPM_BUILD_ROOT install
 
 %post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
