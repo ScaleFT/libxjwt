@@ -21,7 +21,7 @@ libxjwt seeks to provide a minimal c89-style library and API surface for validat
 
 %files
 %{_prefix}/lib/%{name}.*
-%license $RPM_BUILD_DIR/%{name}-%{version}/LICENSE
+%{_prefix}/share/doc/%{name}
 %doc $RPM_BUILD_DIR/%{name}-%{version}/README.md
 
 %package -n %{name}-devel
@@ -38,7 +38,7 @@ Provides:       %{name}-devel = %{version}-%{release}
 
 %prep
 rm -Rf $RPM_BUILD_DIR/%{name}-%{version}
-tar xvfz $RPM_SOURCE_DIR/v%{version}.tar.gz -C $RPM_BUILD_DIR/
+tar xvfz $RPM_SOURCE_DIR/%{name}-%{version}.tar.gz -C $RPM_BUILD_DIR/
 
 %build
 cd %{name}-%{version}
@@ -49,3 +49,6 @@ make
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 make DESTDIR=$RPM_BUILD_ROOT install
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
