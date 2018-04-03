@@ -55,6 +55,7 @@ cd libxjwt/
 automake --add-missing
 ./configure
 make
+sudo make install
 ```
 
 ### Others
