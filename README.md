@@ -48,7 +48,8 @@ rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec
 ### Ubuntu Xenial
 
 ```
-sudo apt-get update -y
+sudo apt-get update
+sudo apt-get upgrade -y
 sudo apt-get install autoconf-archive libjansson-dev libssl-dev build-essential -y
 git clone https://github.com/ScaleFT/libxjwt.git
 cd libxjwt/
