@@ -45,6 +45,18 @@ Assuming a proper rpmbuild environment exists on the build host, a pair of rpms 
 rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec
 ```
 
+### Ubuntu Xenial
+
+```
+sudo apt-get update -y
+sudo apt-get install autoconf-archive libjansson-dev libssl-dev build-essential -y
+git clone https://github.com/ScaleFT/libxjwt.git
+cd libxjwt/
+automake --add-missing
+./configure
+make
+```
+
 ### Others
 
 After Jansson and OpenSSL development headers are available, building libxjwt should just take:
