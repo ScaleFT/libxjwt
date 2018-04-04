@@ -52,7 +52,6 @@ sudo apt-get update -y
 sudo apt-get install autoconf-archive libjansson-dev libssl-dev build-essential -y
 git clone https://github.com/ScaleFT/libxjwt.git
 cd libxjwt/
-automake --add-missing
 ./configure
 make
 sudo make install
