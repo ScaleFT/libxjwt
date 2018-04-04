@@ -50,9 +50,10 @@ rpmbuild --undefine=_disable_source_fetch -bb dist/rpm/libxjwt.spec
 ```
 sudo apt-get update
 sudo apt-get upgrade -y
-sudo apt-get install autoconf-archive libjansson-dev libssl-dev build-essential -y
+sudo apt-get install autoconf-archive libjansson-dev libssl-dev build-essential libtool -y
 git clone https://github.com/ScaleFT/libxjwt.git
 cd libxjwt/
+./buildconf.sh
 ./configure
 make
 sudo make install
