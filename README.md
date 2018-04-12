@@ -6,7 +6,10 @@
 
 # What's New
 
-## 1.0.3 (in development)
+## 1.0.3
+
+- Improve RPM spec file [#15](https://github.com/ScaleFT/libxjwt/pull/15)
+- Log Key ID (kid) when we are unable to find the Validating Key [#14](https://github.com/ScaleFT/libxjwt/pull/14)
 
 ## 1.0.2
 
