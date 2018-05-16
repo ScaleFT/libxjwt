@@ -1,0 +1,22 @@
+Source: libxjwt
+Section: unknown
+Priority: extra
+Maintainer: packager <packager@scaleft.com>
+Build-Depends: autoconf-archive,
+               debhelper (>=9),
+               dh-autoreconf,
+               libjansson-dev,
+               libssl-dev,
+               libtool
+Standards-Version: 3.9.6
+Homepage: https://github.com/ScaleFT/libxjwt
+
+Package: libxjwt
+Section: libs
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: A minimal c89-style library
+ and API surface for validating a compact-form JWT
+ against a set of JWKs.
