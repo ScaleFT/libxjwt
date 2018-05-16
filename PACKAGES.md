@@ -1,8 +1,8 @@
-## Packaging
+# Packaging
 
-# Packages are built with: https://github.com/packpack/packpack
+## Packages are built with: https://github.com/packpack/packpack
 
-# Some examples:
+## Some examples:
 
 ```
 VERSION=1.0.3 OS=debian DIST=stretch ../packpack/packpack
