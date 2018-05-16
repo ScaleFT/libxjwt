@@ -17,6 +17,6 @@ Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: libxjwt is a minimal c89-style library
+Description: A minimal c89-style library
  and API surface for validating a compact-form JWT
  against a set of JWKs.
